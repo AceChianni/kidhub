@@ -49,10 +49,11 @@ export default function CardLink({
             </span>
             <span className="font-semibold">{title}</span>
           </div>
-          <div className="mt-1 text-sm text-muted">{description}</div>
+<div className="mt-1 text-sm text-muted-foreground">{description}</div>
         </div>
       </div>
-      {disabled && <div className="mt-2 text-xs text-muted">Coming soon</div>}
+      {disabled && <div className="mt-2 text-xs text-muted-foreground">Coming soon</div>}
+
     </>
   );
 

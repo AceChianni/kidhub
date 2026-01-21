@@ -1,6 +1,7 @@
 // /app/page.tsx
 
 import Link from "next/link";
+import LinkButton from "@/components/link-button";
 import ScreenTitle from "@/components/screen-title";
 import CardLink from "@/components/card-link";
 
@@ -28,15 +29,16 @@ export default function HomePage() {
 
       </div>
 
-      <div className="rounded-2xl border p-4 text-sm leading-relaxed">
+      <div className="rounded-2xl border border-soft bg-card p-4 text-sm leading-relaxed">
+
         <p className="font-medium">Low stimulation support</p>
         <p className="mt-1 text-muted-foreground">
           Use the toggle in the top bar to reduce motion and visual intensity.
         </p>
         <p className="mt-3">
-          <Link className="underline underline-offset-4" href="/routine/morning">
-            Start with Morning Routine
-          </Link>
+          <LinkButton href="/routine/morning" variant="primary">
+  Start with Morning Routine
+</LinkButton>
         </p>
       </div>
     </div>
