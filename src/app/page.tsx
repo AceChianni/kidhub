@@ -17,7 +17,6 @@ export default function HomePage() {
         <CardLink href="/routine/morning" title="Morning Routine" description="Step-by-step checklist + timer" emoji="🌤️" tone="sun" />
 <CardLink href="/after-school" title="After School Reset" description="A soft landing after the day" emoji="🎒" disabled tone="sky" />
 <CardLink href="/calm-corner" title="Calm Corner" description="Quick resets + parent scripts" emoji="😌" tone="mint" />
-<CardLink href="/rewards" title="Rewards" description="Gentle motivation, no shame" emoji="⭐" tone="lav" />
 <CardLink
   href="/routine/bedtime"
   title="Bedtime"
@@ -25,6 +24,9 @@ export default function HomePage() {
   emoji="🌙"
   tone="rose"
 />
+<CardLink href="/after-school" title="Weekend Activity" description="Ease into unstructured time" emoji="🌻" disabled tone="sun" />
+<CardLink href="/rewards" title="Rewards" description="Gentle motivation, no shame" emoji="⭐" tone="lav" />
+
 
 
       </div>
@@ -36,9 +38,14 @@ export default function HomePage() {
           Use the toggle in the top bar to reduce motion and visual intensity.
         </p>
         <p className="mt-3">
-          <LinkButton href="/routine/morning" variant="primary">
+          <LinkButton
+  href="/routine/morning"
+  variant="secondary"
+  className="bg-primary-soft hover:brightness-[1.02]"
+>
   Start with Morning Routine
 </LinkButton>
+
         </p>
       </div>
     </div>

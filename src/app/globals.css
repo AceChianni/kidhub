@@ -20,8 +20,8 @@
   --muted: 51 65 85;
 
   /* Brand */
-  --primary: 12 154 142;        /* slightly brighter teal */
-  --primary-soft: 178 247 238;  /* more vibrant teal tint */
+  --primary: 12 154 142;        /*  bright teal */
+  --primary-soft: 178 247 238;  /*  vibrant teal tint */
 
   /* Accent tones */
   --sky: 20 184 166;
@@ -30,13 +30,13 @@
   --mint: 14 165 154;
   --mint-soft: 224 255 250;
 
-  --sun: 194 96 12;          /* warmer orange-brown */
-  --sun-soft: 255 226 199;   /* peachier */
+  --sun: 194 96 12;          /* warm orange-brown */
+  --sun-soft: 255 226 199;   /* peachy */
 
   --lav: 120 113 108;
   --lav-soft: 245 245 244;
 
-  --rose: 234 140 22;        /* brighter amber */
+  --rose: 234 140 22;        /* bright amber */
   --rose-soft: 255 246 225;  /* warm cream */
 
   /* Theme mapping */
@@ -50,40 +50,6 @@
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
-}
-
-/* =========================
-   Low Stim ON = Dark theme
-   Less heavy, calmer, airy
-   ========================= */
-html[data-lowstim="true"]{
-  /* Lighter night gradient */
-  --bg1: 20 30 36;      /* blue-teal slate */
-  --bg2: 34 26 22;      /* warm cocoa */
-
-  /* Surfaces  */
-  --card: 28 40 46;     /* lighter surface */
-  --border: 100 116 139;/* slate-500 */
-
-  /* Text (soft white) */
-  --text: 241 245 249;  /* slate-100 */
-  --muted: 203 213 225; /* slate-300 */
-
-  /* Brand (bright but calm) */
-  --primary: 45 212 191;      /* teal-400 */
-  --primary-soft: 28 72 74;  
-
-  /* Tone soft backgrounds  */
-  --sky-soft: 28 92 96;
-  --mint-soft: 22 102 80;
-  --sun-soft: 120 66 32;
-  --lav-soft: 86 78 74;
-  --rose-soft: 138 78 24;
-
-  /* Derived theme vars */
-  --background: rgb(var(--bg1));
-  --foreground: rgb(var(--text));
-  --muted-foreground: var(--muted);
 }
 
 /* =========================
@@ -105,24 +71,24 @@ body{
 }
 
 /* =========================
-   Low-stim behavior
+   Low-stim ON
    ========================= */
 html[data-lowstim="true"]{
-  /* Background: slightly darker than before */
-  --bg1: 12 69 46;      
-  --bg2: 10 30 46; 
+  /* Background */
+  --bg1: 14 20 24;
+  --bg2: 22 16 14;
 
-  /* Boxes/cards */
+  /* Cards/boxes */
   --card: 28 40 46;
   --border: 100 116 139;
 
-  /* Text: lighter */
-  --text: 248 250 252;  /* near-white */
-  --muted: 226 232 240; /* brighter muted */
+  /* Text lighter */
+  --text: 248 250 252;
+  --muted: 226 232 240;
 
-  /* Brand: keep */
+  /* Brand */
   --primary: 45 212 191;
-  --primary-soft: 28 72 74;
+  --primary-soft: 40 98 100;
 
   /* Tone soft backgrounds */
   --sky-soft: 28 92 96;
@@ -137,6 +103,23 @@ html[data-lowstim="true"]{
   --muted-foreground: var(--muted);
 }
 
+/* =========================
+   Low-stim behavior
+   ========================= */
+html[data-lowstim="true"] *{
+  transition: none !important;
+  animation: none !important;
+  scroll-behavior: auto !important;
+}
+
+html[data-lowstim="true"] .backdrop-blur{
+  backdrop-filter: none !important;
+}
+
+/* calmer visuals */
+html[data-lowstim="true"] body{
+  filter: saturate(0.9) contrast(0.98) brightness(1.03);
+}
 
 /* =========================
    Utility classes used by components
@@ -199,4 +182,12 @@ html[data-lowstim="true"]{
 
 .text-rose{
   color: rgb(var(--rose));
+}
+
+.text-app{
+  color: rgb(var(--text));
+}
+
+.text-muted{
+  color: rgb(var(--muted));
 }

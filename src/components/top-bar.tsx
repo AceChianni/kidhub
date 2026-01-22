@@ -28,6 +28,8 @@ export default function TopBar() {
         >
           Low Stim {lowStim ? "On" : "Off"}
         </button>
+
+        
       </div>
     </header>
   );

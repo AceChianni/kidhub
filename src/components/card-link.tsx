@@ -1,5 +1,4 @@
-// /coomponents/card-link.tsx
-
+// src/components/card-link.tsx
 import Link from "next/link";
 
 type Tone = "sky" | "mint" | "sun" | "lav" | "rose";
@@ -36,30 +35,37 @@ export default function CardLink({
   tone?: Tone;
 }) {
   const base =
-  "min-h-[112px] rounded-2xl border border-soft p-4 text-left shadow-sm transition-transform transition-shadow duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black/20 hover:-translate-y-[1px] hover:shadow-md active:scale-[0.99]";
+  "min-h-[112px] rounded-2xl border border-soft p-4 shadow-sm no-underline " +
+  "transition-transform transition-shadow duration-150 " +
+  "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black/20 " +
+  "hover:-translate-y-[1px] hover:shadow-md active:scale-[0.99]";
 
 
   const content = (
-    <>
-      <div className="flex items-start justify-between gap-3">
-        <div>
-          <div className={`inline-flex items-center gap-2 ${toneText[tone]}`}>
-            <span className="text-2xl" aria-hidden>
-              {emoji}
-            </span>
-            <span className="font-semibold">{title}</span>
-          </div>
-<div className="mt-1 text-sm text-muted-foreground">{description}</div>
-        </div>
+    <div className="flex h-full flex-col items-center justify-center text-center">
+      <div className="inline-flex items-center gap-2">
+        <span className={`text-2xl ${toneText[tone]}`} aria-hidden>
+          {emoji}
+        </span>
+        <span className="font-semibold text-app">{title}</span>
       </div>
-      {disabled && <div className="mt-2 text-xs text-muted-foreground">Coming soon</div>}
 
-    </>
+      <div className="mt-0.5 text-sm leading-snug text-muted-foreground">
+        {description}
+      </div>
+
+      {disabled && (
+        <div className="mt-1 text-xs text-muted-foreground">Coming soon</div>
+      )}
+    </div>
   );
 
   if (disabled) {
-    return <div className={`min-h-[112px] rounded-2xl border border-soft p-4 text-left shadow-sm opacity-70 ${toneBg[tone]}`}>{content}</div>;
-
+    return (
+      <div className={`${base} opacity-70 ${toneBg[tone]}`}>
+        {content}
+      </div>
+    );
   }
 
   return (
