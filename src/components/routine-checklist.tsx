@@ -2,8 +2,8 @@
 "use client";
 
 import { useMemo, useState } from "react";
+import { useRouter } from "next/navigation";
 import BigButton from "@/components/big-button";
-import LinkButton from "@/components/link-button";
 
 export type RoutineStep = {
   id: string;
@@ -13,21 +13,16 @@ export type RoutineStep = {
 
 export default function RoutineChecklist({
   steps,
-  doneTitle = "All done. 🎉",
-  doneMessage = "Nice work. You can rest now.",
-  doneActionLabel,
-  doneActionHref,
   onFinish,
+  finishHref = "/rewards",
 }: {
   steps: RoutineStep[];
-  doneTitle?: string;
-  doneMessage?: string;
-  doneActionLabel?: string;
-  doneActionHref?: string;
   onFinish?: () => void;
+  finishHref?: string;
 }) {
+  const router = useRouter();
+
   const [doneIds, setDoneIds] = useState<Set<string>>(new Set());
-  const [showDone, setShowDone] = useState(false);
 
   const stableSteps = useMemo(() => steps, [steps]);
 
@@ -40,27 +35,24 @@ export default function RoutineChecklist({
     });
   };
 
-  const resetAll = () => {
-    setDoneIds(new Set());
-    setShowDone(false);
-  };
+  const resetAll = () => setDoneIds(new Set());
 
   const allDone = doneIds.size === stableSteps.length;
 
   const finish = () => {
-    setShowDone(true);
+    if (!allDone) return;
     onFinish?.();
+    router.push(finishHref);
   };
 
   return (
     <div className="space-y-4">
       {/* Checklist card */}
       <div className="w-full rounded-2xl border border-soft bg-card overflow-hidden">
-        {/* Scroll area */}
-        <div className="max-h-[44vh] overflow-y-auto overflow-x-hidden px-3 py-4">
-          {/* centers the whole list block */}
+        {/* Scroll area (vertical only, no horizontal scroll) */}
+        <div className="max-h-[44vh] overflow-y-auto overflow-x-hidden px-4 py-4">
           <div className="flex justify-center">
-            <ul className="w-[min(360px,100%)] list-none p-0 m-0 space-y-3 overflow-x-hidden">
+            <ul className="w-full max-w-[420px] list-none p-0 m-0 space-y-3 overflow-x-hidden">
               {stableSteps.map((s, idx) => {
                 const checked = doneIds.has(s.id);
 
@@ -87,8 +79,7 @@ export default function RoutineChecklist({
                         </div>
 
                         {/* Text block */}
-                        <div className="min-w-0 flex-1 text-left">
-                          {/* Step + Status */}
+                        <div className="min-w-0 flex-1">
                           <div className="grid grid-cols-[1fr_auto] items-center gap-3 min-w-0">
                             <span className="min-w-0 text-xs text-muted-foreground truncate">
                               Step {idx + 1}
@@ -105,7 +96,6 @@ export default function RoutineChecklist({
                             </span>
                           </div>
 
-                          {/* Main step text */}
                           <div className="mt-1 text-base font-semibold leading-snug break-words">
                             {s.text}
                           </div>
@@ -115,9 +105,7 @@ export default function RoutineChecklist({
                         <div
                           className={[
                             "shrink-0 inline-flex h-10 w-10 items-center justify-center rounded-full shadow-sm",
-                            checked
-                              ? "bg-primary-soft text-app"
-                              : "bg-card text-muted-foreground",
+                            checked ? "bg-primary-soft text-app" : "bg-card text-muted-foreground",
                           ].join(" ")}
                           aria-hidden
                         >
@@ -132,9 +120,9 @@ export default function RoutineChecklist({
           </div>
         </div>
 
-        {/* Bottom action bar */}
+        {/* Bottom action bar (same size buttons) */}
         <div className="border-t border-soft bg-card/95 backdrop-blur px-4 py-4">
-          <div className="grid grid-cols-2 gap-2 [&>*]:w-full">
+          <div className="grid grid-cols-2 gap-2">
             <BigButton variant="secondary" onClick={resetAll}>
               Reset
             </BigButton>
@@ -145,26 +133,6 @@ export default function RoutineChecklist({
           </div>
         </div>
       </div>
-
-      {/* Done card */}
-      {showDone && allDone && (
-        <div className="rounded-2xl border border-soft bg-card p-4">
-          <p className="text-lg font-semibold">{doneTitle}</p>
-          <p className="mt-1 text-muted-foreground">{doneMessage}</p>
-
-          {doneActionHref && doneActionLabel && (
-            <div className="mt-4">
-              <LinkButton
-                href={doneActionHref}
-                variant="primary"
-                className="w-full min-h-[56px] text-base"
-              >
-                {doneActionLabel}
-              </LinkButton>
-            </div>
-          )}
-        </div>
-      )}
     </div>
   );
 }

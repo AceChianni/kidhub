@@ -25,13 +25,7 @@ export default function MorningRoutinePage() {
         <TimerPill label="Transition Timer" defaultMinutes={10} minMinutes={1} maxMinutes={30} />
       </div>
 
-      <RoutineChecklist
-        steps={STEPS}
-        doneTitle="You did it! 🎉"
-        doneMessage="Pick a gentle reward. Keep the win."
-        doneActionLabel="Go to Rewards ⭐"
-        doneActionHref="/rewards"
-      />
+      <RoutineChecklist steps={STEPS} finishHref="/rewards" />
     </div>
   );
 }

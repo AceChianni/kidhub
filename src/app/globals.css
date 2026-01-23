@@ -1,43 +1,50 @@
+/* /app/globals.css */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 /* =========================
-   Light theme
-   Vibrant but soothing
+   Default (Warm + Cozy, high contrast)
    ========================= */
 :root{
-  /* Background gradient */
-  --bg1: 224 255 250;
-  --bg2: 255 236 220;
+  /* Background */
+  --bg1: 250 244 236;  /* oat milk */
+  --bg2: 239 229 216;  /* warm sand */
 
   /* Surfaces */
-  --card: 255 255 255;
-  --border: 200 231 227;
+  --card: 255 255 255;        /* clean white card */
+  --border: 203 188 172;      /* warm taupe border */
 
   /* Text */
-  --text: 10 12 16;
-  --muted: 51 65 85;
+  --text: 24 18 14;           /* espresso ink */
+  --muted: 90 78 68;          /* warm muted */
 
-  /* Brand */
-  --primary: 12 154 142;
-  --primary-soft: 178 247 238;
+  /* Primary (buttons) - deep cinnamon */
+  --primary: 122 64 41;       /* cinnamon */
+  --primary-soft: 245 231 221;/* latte tint */
 
-  /* Accent tones */
-  --sky: 20 184 166;
-  --sky-soft: 178 247 238;
+  /* “Success / reward” pop  */
+  --success: 148 108 44;      /* toasted honey */
+  --success-soft: 252 241 224;
 
-  --mint: 14 165 154;
-  --mint-soft: 224 255 250;
+  /* Accent tones*/
+  --sky: 88 76 68;
+  --sky-soft: 244 238 231;
 
-  --sun: 194 96 12;
-  --sun-soft: 255 226 199;
+  --mint: 78 96 86;
+  --mint-soft: 232 240 235;
 
-  --lav: 120 113 108;
-  --lav-soft: 245 245 244;
+  --sun: 148 108 44;
+  --sun-soft: 252 241 224;
 
-  --rose: 234 140 22;
-  --rose-soft: 255 246 225;
+  --lav: 92 84 78;
+  --lav-soft: 246 242 238;
+
+  --rose: 120 78 66;
+  --rose-soft: 246 233 228;
+
+  /* Glow (warm) */
+  --glow: 190 150 120;
 
   /* Theme mapping */
   --background: rgb(var(--bg1));
@@ -52,9 +59,7 @@
   --font-mono: var(--font-geist-mono);
 }
 
-/* =========================
-   Base styles
-   ========================= */
+/* Base */
 body{
   min-height: 100vh;
   background: linear-gradient(
@@ -70,47 +75,49 @@ body{
   color: rgb(var(--muted-foreground));
 }
 
+/* Keep layout stable */
 html{
   scrollbar-gutter: stable;
 }
 
 /* =========================
-   Low-stim ON
+   Low-stim ON (Dark, warm, high contrast)
    ========================= */
 html[data-lowstim="true"]{
-  /* Background */
-  --bg1: 8 76 97;     /* deep teal */
-  --bg2: 6 54 70;     /* deeper teal */
+  /* Background (warm cocoa) */
+  --bg1: 34 26 22;
+  --bg2: 22 17 15;
 
   /* Surfaces */
-  --card: 12 90 112;
-  --border: 40 130 150;
+  --card: 46 35 30;
+  --border: 120 98 84;
 
-  /* Text */
-  --text: 255 248 240;
-  --muted: 220 235 240;
+  /* Text (higher contrast) */
+  --text: 252 246 239;   /* near-white */
+  --muted: 232 220 208;  
 
-    /* Buttons / Primary (warm sand) */
-  --primary: 198 120 72;
-  --primary-soft: 172 117 45;
+  /* Primary buttons */
+  --primary: 214 176 128;      /* warm wheat */
+  --primary-soft: 66 50 42;    /* deep latte */
 
+  /* Muted “color-coded” tiles  */
+  --sky: 232 220 208;
+  --sky-soft: 54 64 66;   /* muted slate */
 
+  --mint: 232 220 208;
+  --mint-soft: 50 68 58;  /* muted sage */
 
-  /* Tones */
-  --sky: 180 235 255;
-  --sky-soft: 18 110 130;
+  --sun: 252 246 239;
+  --sun-soft: 78 56 44;   /* muted clay */
 
-  --mint: 120 230 200;
-  --mint-soft: 20 110 105;
+  --lav: 232 220 208;
+  --lav-soft: 62 52 64;   /* muted plum */
 
-  --sun: 255 200 120;
-  --sun-soft: 20 95 105;
+  --rose: 252 246 239;
+  --rose-soft: 74 50 46;  /* muted blush/brown */
 
-  --lav: 220 210 255;
-  --lav-soft: 26 110 130;
-
-  --rose: 255 175 190;
-  --rose-soft: 22 100 120;
+  /* Glow should NOT be blue in low-stim */
+  --glow: 170 132 102;
 
   /* Derived */
   --background: rgb(var(--bg1));
@@ -118,9 +125,12 @@ html[data-lowstim="true"]{
   --muted-foreground: var(--muted);
 }
 
-/* =========================
-   Low-stim behavior
-   ========================= */
+html[data-lowstim="true"] .lowstim-readable{
+  color: rgb(var(--text));
+  opacity: 0.92;
+}
+
+/* Low-stim behavior */
 html[data-lowstim="true"] *{
   transition: none !important;
   animation: none !important;
@@ -131,9 +141,12 @@ html[data-lowstim="true"] .backdrop-blur{
   backdrop-filter: none !important;
 }
 
-/* calmer visuals */
 html[data-lowstim="true"] body{
   filter: saturate(0.95) contrast(0.98) brightness(1.02);
+}
+html[data-lowstim="true"] .text-muted-foreground{
+  color: rgb(var(--muted));
+  opacity: 0.9;
 }
 
 /* =========================
@@ -144,7 +157,7 @@ html[data-lowstim="true"] body{
 }
 
 .border-soft{
-  border-color: rgba(var(--border), 0.55); /* softer borders */
+  border-color: rgba(var(--border), 0.55);
 }
 
 .bg-primary{
@@ -171,10 +184,55 @@ html[data-lowstim="true"] body{
 .text-lav{ color: rgb(var(--lav)); }
 .text-rose{ color: rgb(var(--rose)); }
 
-.text-app{
-  color: rgb(var(--text));
+.text-app{ color: rgb(var(--text)); }
+.text-muted{ color: rgb(var(--muted)); }
+
+/* Success helpers (Rewards / “done” moments) */
+.bg-success{ background: rgb(var(--success)); }
+.bg-success-soft{ background: rgb(var(--success-soft)); }
+.text-success{ color: rgb(var(--success)); }
+
+/* Warm glow helper */
+.glow-warm{
+  box-shadow:
+    0 0 0 1px rgba(var(--glow), 0.25),
+    0 10px 28px rgba(var(--glow), 0.18);
 }
 
-.text-muted{
-  color: rgb(var(--muted));
+/* Tiles: consistent, app-like, readable */
+.tile{
+  background: rgba(var(--card), 0.70);
+  border: 1px solid rgba(var(--border), 0.45);
+  border-radius: 1.25rem; /* 20px-ish */
+}
+
+.tile-tone{
+  border: 1px solid rgba(var(--border), 0.40);
+  border-radius: 1.25rem;
+}
+
+/* Make tile body text readable in low-stim */
+html[data-lowstim="true"] .tile p,
+html[data-lowstim="true"] .tile span,
+html[data-lowstim="true"] .tile-tone p,
+html[data-lowstim="true"] .tile-tone span{
+  color: rgb(var(--text));
+  opacity: 0.92;
+}
+
+/* De-emphasize "coming soon" */
+html[data-lowstim="true"] .tile .coming-soon,
+html[data-lowstim="true"] .tile-tone .coming-soon{
+  opacity: 0.75;
+}
+
+/* warm glow */
+:focus-visible{
+  outline: none;
+}
+
+.focus-ring{
+  box-shadow:
+    0 0 0 2px rgba(var(--glow), 0.35),
+    0 10px 28px rgba(var(--glow), 0.18);
 }
