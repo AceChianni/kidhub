@@ -4,26 +4,24 @@
 
 /* =========================
    Light theme
+   Vibrant but soothing
    ========================= */
 :root{
-  /* Background gradient  */
-  --bg1: 224 255 250;   /* brighter aqua-mint */
-  --bg2: 255 236 220;   /* peach glow */
+  /* Background gradient */
+  --bg1: 224 255 250;
+  --bg2: 255 236 220;
 
   /* Surfaces */
   --card: 255 255 255;
-  --border: 200 231 227; /* teal-tinted border */
+  --border: 200 231 227;
 
   /* Text */
   --text: 10 12 16;
   --muted: 51 65 85;
 
   /* Brand */
-  --primary: 12 154 142;        /* bright teal */
-  --primary-soft: 178 247 238;  /* vibrant teal tint */
-
-  /* Glow token ) */
-  --glow: 20 184 166;           /* teal glow  */
+  --primary: 12 154 142;
+  --primary-soft: 178 247 238;
 
   /* Accent tones */
   --sky: 20 184 166;
@@ -32,14 +30,14 @@
   --mint: 14 165 154;
   --mint-soft: 224 255 250;
 
-  --sun: 194 96 12;          /* warm orange-brown */
-  --sun-soft: 255 226 199;   /* peachy */
+  --sun: 194 96 12;
+  --sun-soft: 255 226 199;
 
   --lav: 120 113 108;
   --lav-soft: 245 245 244;
 
-  --rose: 234 140 22;        /* bright amber */
-  --rose-soft: 255 246 225;  /* warm cream */
+  --rose: 234 140 22;
+  --rose-soft: 255 246 225;
 
   /* Theme mapping */
   --background: rgb(var(--bg1));
@@ -72,44 +70,47 @@ body{
   color: rgb(var(--muted-foreground));
 }
 
+html{
+  scrollbar-gutter: stable;
+}
+
 /* =========================
    Low-stim ON
    ========================= */
 html[data-lowstim="true"]{
   /* Background */
-  --bg1: 110 58 30;
-  --bg2: 75 38 20;
+  --bg1: 8 76 97;     /* deep teal */
+  --bg2: 6 54 70;     /* deeper teal */
 
   /* Surfaces */
-  --card: 130 72 38;
-  --border: 175 120 85;
+  --card: 12 90 112;
+  --border: 40 130 150;
 
   /* Text */
   --text: 255 248 240;
-  --muted: 235 215 195;
+  --muted: 220 235 240;
 
-  /* Buttons / Primary  */
-  --primary: 120 230 200;       /* calm mint (pops on warm bg) */
-  --primary-soft: 70 110 95;    /* muted tint for soft hovers */
+    /* Buttons / Primary (warm sand) */
+  --primary: 198 120 72;
+  --primary-soft: 172 117 45;
 
-  /* Glow token */
-  --glow: 255 200 120;          /* soft gold glow */
+
 
   /* Tones */
   --sky: 180 235 255;
-  --sky-soft: 90 120 135;
+  --sky-soft: 18 110 130;
 
   --mint: 120 230 200;
-  --mint-soft: 70 110 95;
+  --mint-soft: 20 110 105;
 
   --sun: 255 200 120;
-  --sun-soft: 140 90 50;
+  --sun-soft: 20 95 105;
 
   --lav: 220 210 255;
-  --lav-soft: 95 75 120;
+  --lav-soft: 26 110 130;
 
   --rose: 255 175 190;
-  --rose-soft: 120 60 75;
+  --rose-soft: 22 100 120;
 
   /* Derived */
   --background: rgb(var(--bg1));
@@ -132,7 +133,7 @@ html[data-lowstim="true"] .backdrop-blur{
 
 /* calmer visuals */
 html[data-lowstim="true"] body{
-  filter: saturate(0.9) contrast(0.98) brightness(1.03);
+  filter: saturate(0.95) contrast(0.98) brightness(1.02);
 }
 
 /* =========================
@@ -143,7 +144,7 @@ html[data-lowstim="true"] body{
 }
 
 .border-soft{
-  border-color: rgb(var(--border));
+  border-color: rgba(var(--border), 0.55); /* softer borders */
 }
 
 .bg-primary{
@@ -158,45 +159,17 @@ html[data-lowstim="true"] body{
   color: rgb(var(--primary));
 }
 
-.bg-sky-soft{
-  background: rgb(var(--sky-soft));
-}
+.bg-sky-soft{ background: rgb(var(--sky-soft)); }
+.bg-mint-soft{ background: rgb(var(--mint-soft)); }
+.bg-sun-soft{ background: rgb(var(--sun-soft)); }
+.bg-lav-soft{ background: rgb(var(--lav-soft)); }
+.bg-rose-soft{ background: rgb(var(--rose-soft)); }
 
-.bg-mint-soft{
-  background: rgb(var(--mint-soft));
-}
-
-.bg-sun-soft{
-  background: rgb(var(--sun-soft));
-}
-
-.bg-lav-soft{
-  background: rgb(var(--lav-soft));
-}
-
-.bg-rose-soft{
-  background: rgb(var(--rose-soft));
-}
-
-.text-sky{
-  color: rgb(var(--sky));
-}
-
-.text-mint{
-  color: rgb(var(--mint));
-}
-
-.text-sun{
-  color: rgb(var(--sun));
-}
-
-.text-lav{
-  color: rgb(var(--lav));
-}
-
-.text-rose{
-  color: rgb(var(--rose));
-}
+.text-sky{ color: rgb(var(--sky)); }
+.text-mint{ color: rgb(var(--mint)); }
+.text-sun{ color: rgb(var(--sun)); }
+.text-lav{ color: rgb(var(--lav)); }
+.text-rose{ color: rgb(var(--rose)); }
 
 .text-app{
   color: rgb(var(--text));
@@ -204,11 +177,4 @@ html[data-lowstim="true"] body{
 
 .text-muted{
   color: rgb(var(--muted));
-}
-
-/* Soft glow  */
-.glow-soft{
-  box-shadow:
-    0 0 0 2px rgba(var(--glow), 0.22),
-    0 0 22px rgba(var(--glow), 0.25);
 }
