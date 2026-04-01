@@ -1,35 +1,38 @@
 // /components/big-button.tsx
 "use client";
 
-type Props = {
-  children: React.ReactNode;
-  onClick?: () => void;
-  disabled?: boolean;
+import React from "react";
+
+type Props = React.ButtonHTMLAttributes<HTMLButtonElement> & {
   variant?: "primary" | "secondary";
-  className?: string;
 };
 
 export default function BigButton({
   children,
-  onClick,
-  disabled,
   variant = "primary",
   className = "",
+  disabled,
+  ...rest
 }: Props) {
   const base =
-    "min-h-[56px] w-full rounded-xl px-4 py-3 font-medium transition-transform transition-colors duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black/20 disabled:opacity-50 disabled:cursor-not-allowed active:scale-[0.99]";
+    "inline-flex items-center justify-center " +
+    "min-h-[56px] w-full " +
+    "rounded-xl px-4 py-3 font-semibold " +
+    "transition-all duration-150 " +
+    "focus-ring " +
+    "disabled:opacity-60 disabled:cursor-not-allowed";
 
   const styles =
     variant === "primary"
-      ? "bg-primary text-white shadow-sm hover:brightness-[1.03] hover:-translate-y-[1px]"
-      : "border border-soft bg-card text-app hover:bg-primary-soft hover:-translate-y-[1px]";
+      ? "bg-primary text-[rgb(var(--text-on-primary))] shadow-sm"
+      : "bg-card border border-soft text-app";
 
   return (
     <button
       type="button"
       className={`${base} ${styles} ${className}`}
-      onClick={onClick}
       disabled={disabled}
+      {...rest}
     >
       {children}
     </button>

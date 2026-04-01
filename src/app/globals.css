@@ -1,55 +1,70 @@
-/* /app/globals.css */
+/* /src/app/globals.css */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-/* =========================
-   Default (Warm + Cozy, high contrast)
-   ========================= */
-:root{
-  /* Background */
-  --bg1: 250 244 236;  /* oat milk */
-  --bg2: 239 229 216;  /* warm sand */
+/* =========================================================
+   Kids Hub Design System
+   Goal: calmer for neurodivergent users + stronger WCAG support
+   Notes:
+   - keep contrast high
+   - reduce visual clutter
+   - keep focus states obvious
+   - preserve meaning without color alone
+   ========================================================= */
+
+:root {
+  color-scheme: light;
+
+  /* Backgrounds */
+  --bg1: 248 243 236;   /* warm paper */
+  --bg2: 238 229 217;   /* oat sand */
 
   /* Surfaces */
-  --card: 255 255 255;        /* clean white card */
-  --border: 203 188 172;      /* warm taupe border */
+  --card: 255 252 248;
+  --card-strong: 255 255 255;
+  --border: 159 138 120;     /* darker border for better UI contrast */
+  --border-soft: 184 165 148;
 
   /* Text */
-  --text: 24 18 14;           /* espresso ink */
-  --muted: 90 78 68;          /* warm muted */
+  --text: 29 23 19;
+  --muted: 84 72 62;
+  --text-on-primary: 255 250 245;
 
-  /* Primary (buttons) - deep cinnamon */
-  --primary: 122 64 41;       /* cinnamon */
-  --primary-soft: 245 231 221;/* latte tint */
+  /* Brand / primary */
+  --primary: 112 61 41;
+  --primary-hover: 96 52 35;
+  --primary-soft: 242 230 221;
 
-  /* “Success / reward” pop  */
-  --success: 148 108 44;      /* toasted honey */
-  --success-soft: 252 241 224;
+  /* Success / completion */
+  --success: 108 82 32;
+  --success-soft: 247 238 215;
 
-  /* Accent tones*/
-  --sky: 88 76 68;
-  --sky-soft: 244 238 231;
+  /* Calm accent tones */
+  --sky: 66 61 57;
+  --sky-soft: 237 234 229;
 
-  --mint: 78 96 86;
-  --mint-soft: 232 240 235;
+  --mint: 54 77 67;
+  --mint-soft: 229 237 232;
 
-  --sun: 148 108 44;
-  --sun-soft: 252 241 224;
+  --sun: 114 85 36;
+  --sun-soft: 247 238 215;
 
-  --lav: 92 84 78;
-  --lav-soft: 246 242 238;
+  --lav: 77 69 81;
+  --lav-soft: 238 234 241;
 
-  --rose: 120 78 66;
-  --rose-soft: 246 233 228;
+  --rose: 103 66 60;
+  --rose-soft: 243 231 228;
 
-  /* Glow (warm) */
-  --glow: 190 150 120;
+  /* Focus / glow */
+  --focus: 126 87 61;
+  --focus-ring: 211 176 149;
+  --shadow: 42 26 18;
 
-  /* Theme mapping */
+  /* Semantic mapping */
   --background: rgb(var(--bg1));
   --foreground: rgb(var(--text));
-  --muted-foreground: var(--muted);
+  --muted-foreground: rgb(var(--muted));
 }
 
 @theme inline {
@@ -59,180 +74,527 @@
   --font-mono: var(--font-geist-mono);
 }
 
-/* Base */
-body{
-  min-height: 100vh;
-  background: linear-gradient(
-    135deg,
-    rgb(var(--bg1)) 0%,
-    rgb(var(--bg2)) 100%
-  );
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+/* =========================
+   Base
+   ========================= */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
 }
 
-.text-muted-foreground{
-  color: rgb(var(--muted-foreground));
-}
-
-/* Keep layout stable */
-html{
+html {
   scrollbar-gutter: stable;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+body {
+  min-height: 100vh;
+  margin: 0;
+  background:
+    linear-gradient(180deg, rgba(255,255,255,0.28), rgba(255,255,255,0.08)),
+    linear-gradient(135deg, rgb(var(--bg1)) 0%, rgb(var(--bg2)) 100%);
+  color: rgb(var(--text));
+  font-family: Arial, Helvetica, sans-serif;
+  line-height: 1.5;
+  letter-spacing: 0;
+  text-rendering: optimizeLegibility;
+}
+
+img,
+svg,
+video,
+canvas {
+  display: block;
+  max-width: 100%;
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  margin: 0;
+  color: rgb(var(--text));
+  letter-spacing: -0.01em;
+}
+
+p {
+  margin: 0;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+::selection {
+  background: rgba(var(--focus-ring), 0.35);
 }
 
 /* =========================
-   Low-stim ON (Dark, warm, high contrast)
+   Focus styles
    ========================= */
-html[data-lowstim="true"]{
-  /* Background (warm cocoa) */
-  --bg1: 34 26 22;
-  --bg2: 22 17 15;
 
-  /* Surfaces */
-  --card: 46 35 30;
-  --border: 120 98 84;
-
-  /* Text (higher contrast) */
-  --text: 252 246 239;   /* near-white */
-  --muted: 232 220 208;  
-
-  /* Primary buttons */
-  --primary: 214 176 128;      /* warm wheat */
-  --primary-soft: 66 50 42;    /* deep latte */
-
-  /* Muted “color-coded” tiles  */
-  --sky: 232 220 208;
-  --sky-soft: 54 64 66;   /* muted slate */
-
-  --mint: 232 220 208;
-  --mint-soft: 50 68 58;  /* muted sage */
-
-  --sun: 252 246 239;
-  --sun-soft: 78 56 44;   /* muted clay */
-
-  --lav: 232 220 208;
-  --lav-soft: 62 52 64;   /* muted plum */
-
-  --rose: 252 246 239;
-  --rose-soft: 74 50 46;  /* muted blush/brown */
-
-  /* Glow should NOT be blue in low-stim */
-  --glow: 170 132 102;
-
-  /* Derived */
-  --background: rgb(var(--bg1));
-  --foreground: rgb(var(--text));
-  --muted-foreground: var(--muted);
-}
-
-html[data-lowstim="true"] .lowstim-readable{
-  color: rgb(var(--text));
-  opacity: 0.92;
-}
-
-/* Low-stim behavior */
-html[data-lowstim="true"] *{
-  transition: none !important;
-  animation: none !important;
-  scroll-behavior: auto !important;
-}
-
-html[data-lowstim="true"] .backdrop-blur{
-  backdrop-filter: none !important;
-}
-
-html[data-lowstim="true"] body{
-  filter: saturate(0.95) contrast(0.98) brightness(1.02);
-}
-html[data-lowstim="true"] .text-muted-foreground{
-  color: rgb(var(--muted));
-  opacity: 0.9;
-}
-
-/* =========================
-   Utility classes used by components
-   ========================= */
-.bg-card{
-  background: rgba(var(--card), 0.94);
-}
-
-.border-soft{
-  border-color: rgba(var(--border), 0.55);
-}
-
-.bg-primary{
-  background: rgb(var(--primary));
-}
-
-.bg-primary-soft{
-  background: rgb(var(--primary-soft));
-}
-
-.text-primary{
-  color: rgb(var(--primary));
-}
-
-.bg-sky-soft{ background: rgb(var(--sky-soft)); }
-.bg-mint-soft{ background: rgb(var(--mint-soft)); }
-.bg-sun-soft{ background: rgb(var(--sun-soft)); }
-.bg-lav-soft{ background: rgb(var(--lav-soft)); }
-.bg-rose-soft{ background: rgb(var(--rose-soft)); }
-
-.text-sky{ color: rgb(var(--sky)); }
-.text-mint{ color: rgb(var(--mint)); }
-.text-sun{ color: rgb(var(--sun)); }
-.text-lav{ color: rgb(var(--lav)); }
-.text-rose{ color: rgb(var(--rose)); }
-
-.text-app{ color: rgb(var(--text)); }
-.text-muted{ color: rgb(var(--muted)); }
-
-/* Success helpers (Rewards / “done” moments) */
-.bg-success{ background: rgb(var(--success)); }
-.bg-success-soft{ background: rgb(var(--success-soft)); }
-.text-success{ color: rgb(var(--success)); }
-
-/* Warm glow helper */
-.glow-warm{
-  box-shadow:
-    0 0 0 1px rgba(var(--glow), 0.25),
-    0 10px 28px rgba(var(--glow), 0.18);
-}
-
-/* Tiles: consistent, app-like, readable */
-.tile{
-  background: rgba(var(--card), 0.70);
-  border: 1px solid rgba(var(--border), 0.45);
-  border-radius: 1.25rem; /* 20px-ish */
-}
-
-.tile-tone{
-  border: 1px solid rgba(var(--border), 0.40);
-  border-radius: 1.25rem;
-}
-
-/* Make tile body text readable in low-stim */
-html[data-lowstim="true"] .tile p,
-html[data-lowstim="true"] .tile span,
-html[data-lowstim="true"] .tile-tone p,
-html[data-lowstim="true"] .tile-tone span{
-  color: rgb(var(--text));
-  opacity: 0.92;
-}
-
-/* De-emphasize "coming soon" */
-html[data-lowstim="true"] .tile .coming-soon,
-html[data-lowstim="true"] .tile-tone .coming-soon{
-  opacity: 0.75;
-}
-
-/* warm glow */
-:focus-visible{
+:focus {
   outline: none;
 }
 
-.focus-ring{
+:focus-visible {
+  outline: 3px solid rgba(var(--focus), 0.9);
+  outline-offset: 2px;
+}
+
+.focus-ring:focus-visible,
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible,
+[role="button"]:focus-visible,
+[tabindex]:focus-visible {
   box-shadow:
-    0 0 0 2px rgba(var(--glow), 0.35),
-    0 10px 28px rgba(var(--glow), 0.18);
+    0 0 0 3px rgba(var(--focus-ring), 0.7),
+    0 0 0 6px rgba(var(--card-strong), 0.95);
+  border-radius: 1rem;
+}
+
+/* =========================
+   Reduced motion
+   ========================= */
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition-duration: 0.01ms !important;
+    transition-delay: 0ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* =========================
+   Low stimulation mode
+   ========================= */
+
+html[data-lowstim="true"] {
+  color-scheme: dark;
+
+  --bg1: 31 25 22;
+  --bg2: 24 19 17;
+
+  --card: 46 38 34;
+  --card-strong: 56 46 41;
+  --border: 157 137 123;
+  --border-soft: 122 105 94;
+
+  --text: 248 241 235;
+  --muted: 224 213 203;
+  --text-on-primary: 28 20 16;
+
+  --primary: 216 182 142;
+  --primary-hover: 226 191 151;
+  --primary-soft: 70 56 49;
+
+  --success: 214 187 126;
+  --success-soft: 78 63 45;
+
+  --sky: 240 233 227;
+  --sky-soft: 62 68 70;
+
+  --mint: 240 233 227;
+  --mint-soft: 56 71 63;
+
+  --sun: 248 241 235;
+  --sun-soft: 88 64 49;
+
+  --lav: 240 233 227;
+  --lav-soft: 67 57 71;
+
+  --rose: 248 241 235;
+  --rose-soft: 83 56 52;
+
+  --focus: 248 213 174;
+  --focus-ring: 169 132 101;
+
+  --background: rgb(var(--bg1));
+  --foreground: rgb(var(--text));
+  --muted-foreground: rgb(var(--muted));
+}
+
+html[data-lowstim="true"] body {
+  background:
+    linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0)),
+    linear-gradient(135deg, rgb(var(--bg1)) 0%, rgb(var(--bg2)) 100%);
+}
+
+html[data-lowstim="true"] .lowstim-readable {
+  color: rgb(var(--text));
+  opacity: 1;
+}
+
+html[data-lowstim="true"] .backdrop-blur {
+  backdrop-filter: none !important;
+}
+
+html[data-lowstim="true"] * {
+  animation: none !important;
+  transition: none !important;
+}
+
+/* =========================
+   Typography utilities
+   ========================= */
+
+.text-app {
+  color: rgb(var(--text));
+}
+
+.text-muted,
+.text-muted-foreground {
+  color: rgb(var(--muted));
+  opacity: 1;
+}
+
+.text-primary {
+  color: rgb(var(--primary));
+}
+
+.text-success {
+  color: rgb(var(--success));
+}
+
+.text-sky {
+  color: rgb(var(--sky));
+}
+
+.text-mint {
+  color: rgb(var(--mint));
+}
+
+.text-sun {
+  color: rgb(var(--sun));
+}
+
+.text-lav {
+  color: rgb(var(--lav));
+}
+
+.text-rose {
+  color: rgb(var(--rose));
+}
+
+/* =========================
+   Background utilities
+   ========================= */
+
+.bg-card {
+  background: rgba(var(--card), 0.96);
+}
+
+.bg-card-strong {
+  background: rgb(var(--card-strong));
+}
+
+.bg-primary {
+  background: rgb(var(--primary));
+  color: rgb(var(--text-on-primary));
+}
+
+.bg-primary-soft {
+  background: rgb(var(--primary-soft));
+}
+
+.bg-success {
+  background: rgb(var(--success));
+}
+
+.bg-success-soft {
+  background: rgb(var(--success-soft));
+}
+
+.bg-sky-soft {
+  background: rgb(var(--sky-soft));
+}
+
+.bg-mint-soft {
+  background: rgb(var(--mint-soft));
+}
+
+.bg-sun-soft {
+  background: rgb(var(--sun-soft));
+}
+
+.bg-lav-soft {
+  background: rgb(var(--lav-soft));
+}
+
+.bg-rose-soft {
+  background: rgb(var(--rose-soft));
+}
+
+/* =========================
+   Borders + shadows
+   ========================= */
+
+.border-soft {
+  border-color: rgba(var(--border), 0.52);
+}
+
+.border-softer {
+  border-color: rgba(var(--border-soft), 0.45);
+}
+
+.glow-warm {
+  box-shadow:
+    0 0 0 1px rgba(var(--focus-ring), 0.18),
+    0 8px 24px rgba(var(--shadow), 0.10);
+}
+
+.card-shadow {
+  box-shadow:
+    0 1px 2px rgba(var(--shadow), 0.05),
+    0 10px 24px rgba(var(--shadow), 0.06);
+}
+
+/* =========================
+   Tiles / cards
+   ========================= */
+
+.tile,
+.tile-tone {
+  border-radius: 1.25rem;
+  min-height: 9rem;
+  border-width: 1px;
+  border-style: solid;
+}
+
+.tile {
+  background: rgba(var(--card-strong), 0.86);
+  border-color: rgba(var(--border), 0.40);
+  box-shadow:
+    0 1px 2px rgba(var(--shadow), 0.04),
+    0 8px 18px rgba(var(--shadow), 0.05);
+}
+
+.tile-tone {
+  border-color: rgba(var(--border), 0.32);
+  box-shadow:
+    0 1px 2px rgba(var(--shadow), 0.03),
+    0 6px 14px rgba(var(--shadow), 0.04);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .tile-interactive:hover,
+  .tile-tone.tile-interactive:hover {
+    transform: translateY(-1px);
+    box-shadow:
+      0 3px 8px rgba(var(--shadow), 0.06),
+      0 12px 24px rgba(var(--shadow), 0.08);
+  }
+}
+
+.tile-interactive {
+  transition:
+    transform 140ms ease,
+    box-shadow 140ms ease,
+    background-color 140ms ease,
+    border-color 140ms ease;
+}
+
+.tile-interactive:active {
+  transform: scale(0.99);
+}
+
+html[data-lowstim="true"] .tile,
+html[data-lowstim="true"] .tile-tone {
+  box-shadow: none;
+  border-color: rgba(var(--border), 0.58);
+}
+
+html[data-lowstim="true"] .tile-interactive:hover,
+html[data-lowstim="true"] .tile-tone.tile-interactive:hover,
+html[data-lowstim="true"] .tile-interactive:active {
+  transform: none;
+}
+
+/* Disabled / coming soon */
+.is-disabled,
+[aria-disabled="true"],
+:disabled {
+  cursor: not-allowed;
+}
+
+.tile-disabled,
+[aria-disabled="true"].tile,
+[aria-disabled="true"].tile-tone {
+  opacity: 0.88;
+  box-shadow: none;
+  filter: saturate(0.82);
+}
+
+.coming-soon {
+  font-size: 0.75rem;
+  font-weight: 700;
+  line-height: 1rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgb(var(--muted));
+}
+
+/* =========================
+   Buttons / controls
+   ========================= */
+
+button,
+[role="button"],
+a[role="button"] {
+  min-height: 2.75rem; /* 44px */
+}
+
+.control-min {
+  min-height: 2.75rem;
+  min-width: 2.75rem;
+}
+
+.btn-primary,
+.btn-secondary,
+.btn-ghost {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  min-height: 2.75rem;
+  min-width: 2.75rem;
+  padding: 0.75rem 1rem;
+  border-radius: 999px;
+  border: 1px solid transparent;
+  font-weight: 600;
+  line-height: 1.2;
+  text-align: center;
+}
+
+.btn-primary {
+  background: rgb(var(--primary));
+  color: rgb(var(--text-on-primary));
+  box-shadow: 0 6px 16px rgba(var(--shadow), 0.12);
+}
+
+.btn-primary:hover {
+  background: rgb(var(--primary-hover));
+}
+
+.btn-secondary {
+  background: rgba(var(--card-strong), 0.95);
+  color: rgb(var(--text));
+  border-color: rgba(var(--border), 0.48);
+}
+
+.btn-secondary:hover {
+  background: rgba(var(--card-strong), 1);
+}
+
+.btn-ghost {
+  background: transparent;
+  color: rgb(var(--text));
+  border-color: rgba(var(--border), 0.42);
+}
+
+/* =========================
+   Form controls
+   ========================= */
+
+input,
+select,
+textarea {
+  width: 100%;
+  min-height: 2.75rem;
+  border: 1px solid rgba(var(--border), 0.62);
+  border-radius: 0.9rem;
+  background: rgba(var(--card-strong), 0.96);
+  color: rgb(var(--text));
+  padding: 0.75rem 0.9rem;
+}
+
+input::placeholder,
+textarea::placeholder {
+  color: rgb(var(--muted));
+  opacity: 1;
+}
+
+label {
+  color: rgb(var(--text));
+  font-weight: 600;
+}
+
+/* =========================
+   Layout helpers
+   ========================= */
+
+.section-spacing {
+  margin-top: 1.5rem;
+}
+
+.stack-sm > * + * {
+  margin-top: 0.5rem;
+}
+
+.stack-md > * + * {
+  margin-top: 0.75rem;
+}
+
+.stack-lg > * + * {
+  margin-top: 1rem;
+}
+
+/* =========================
+   Readability helpers
+   ========================= */
+
+.readable-copy {
+  max-width: 36ch;
+}
+
+.calm-copy {
+  line-height: 1.65;
+}
+
+/* =========================
+   Accessibility helpers
+   ========================= */
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Do not rely only on color for state */
+.state-done::before {
+  content: "✓ ";
+  font-weight: 700;
+}
+
+.state-pending::before {
+  content: "○ ";
+  font-weight: 700;
 }

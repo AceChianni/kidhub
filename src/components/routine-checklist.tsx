@@ -1,4 +1,4 @@
-// /components/routine-checklist.tsx
+// src/components/routine-checklist.tsx
 "use client";
 
 import { useMemo, useState } from "react";
@@ -15,10 +15,14 @@ export default function RoutineChecklist({
   steps,
   onFinish,
   finishHref = "/rewards",
+  doneTitle = "All done",
+  doneMessage = "Nice work finishing your routine.",
 }: {
   steps: RoutineStep[];
   onFinish?: () => void;
   finishHref?: string;
+  doneTitle?: string;
+  doneMessage?: string;
 }) {
   const router = useRouter();
 
@@ -29,8 +33,7 @@ export default function RoutineChecklist({
   const toggleStep = (id: string) => {
     setDoneIds((prev) => {
       const next = new Set(prev);
-      if (next.has(id)) next.delete(id);
-      else next.add(id);
+      next.has(id) ? next.delete(id) : next.add(id);
       return next;
     });
   };
@@ -38,6 +41,7 @@ export default function RoutineChecklist({
   const resetAll = () => setDoneIds(new Set());
 
   const allDone = doneIds.size === stableSteps.length;
+  const remaining = stableSteps.length - doneIds.size;
 
   const finish = () => {
     if (!allDone) return;
@@ -47,90 +51,102 @@ export default function RoutineChecklist({
 
   return (
     <div className="space-y-4">
-      {/* Checklist card */}
-      <div className="w-full rounded-2xl border border-soft bg-card overflow-hidden">
-        {/* Scroll area (vertical only, no horizontal scroll) */}
-        <div className="max-h-[44vh] overflow-y-auto overflow-x-hidden px-4 py-4">
-          <div className="flex justify-center">
-            <ul className="w-full max-w-[420px] list-none p-0 m-0 space-y-3 overflow-x-hidden">
-              {stableSteps.map((s, idx) => {
-                const checked = doneIds.has(s.id);
+      <div className="sr-only" aria-live="polite">
+        {allDone ? "All steps completed" : `${remaining} steps remaining`}
+      </div>
 
-                return (
-                  <li key={s.id} className="overflow-x-hidden">
-                    <button
-                      type="button"
-                      onClick={() => toggleStep(s.id)}
-                      className={[
-                        "w-full min-w-0 overflow-hidden rounded-2xl px-4 py-4",
-                        "bg-card text-app shadow-sm",
-                        "transition-transform duration-150 active:scale-[0.99]",
-                        "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black/20",
-                        checked ? "bg-primary-soft" : "hover:bg-primary-soft",
-                      ].join(" ")}
-                      aria-pressed={checked}
-                    >
-                      <div className="flex min-w-0 items-center gap-4">
-                        {/* Emoji bubble */}
-                        <div className="shrink-0 inline-flex h-11 w-11 items-center justify-center rounded-full bg-card shadow-sm">
-                          <span className="text-xl" aria-hidden>
-                            {s.emoji ?? "✅"}
-                          </span>
-                        </div>
+      <div className="w-full rounded-2xl bg-card">
+        <ul className="m-0 list-none space-y-3 p-0">
+          {stableSteps.map((s, idx) => {
+            const checked = doneIds.has(s.id);
 
-                        {/* Text block */}
-                        <div className="min-w-0 flex-1">
-                          <div className="grid grid-cols-[1fr_auto] items-center gap-3 min-w-0">
-                            <span className="min-w-0 text-xs text-muted-foreground truncate">
-                              Step {idx + 1}
-                            </span>
+            return (
+              <li key={s.id}>
+                <button
+                  type="button"
+                  onClick={() => toggleStep(s.id)}
+                  aria-pressed={checked}
+                  aria-label={`${s.text}. ${checked ? "Completed" : "Not completed"}`}
+                  className={[
+                    "tile tile-interactive card-shadow w-full px-4 py-4 text-left",
+                    "focus-ring",
+                    checked ? "bg-primary-soft" : "",
+                  ].join(" ")}
+                >
+                  <div className="flex items-center gap-4">
+                    <div className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-card shadow-sm">
+                      <span className="text-xl" aria-hidden>
+                        {s.emoji ?? "✅"}
+                      </span>
+                    </div>
 
-                            <span
-                              className={[
-                                "shrink-0 inline-flex items-center justify-center rounded-full px-3 py-1 text-xs font-medium",
-                                "bg-card",
-                                checked ? "text-app" : "text-muted-foreground",
-                              ].join(" ")}
-                            >
-                              {checked ? "Done" : "To do"}
-                            </span>
-                          </div>
+                    <div className="min-w-0 flex-1">
+                      <div className="flex items-center justify-between gap-3">
+                        <span className="text-xs text-muted-foreground">
+                          Step {idx + 1}
+                        </span>
 
-                          <div className="mt-1 text-base font-semibold leading-snug break-words">
-                            {s.text}
-                          </div>
-                        </div>
-
-                        {/* Check indicator */}
-                        <div
+                        <span
                           className={[
-                            "shrink-0 inline-flex h-10 w-10 items-center justify-center rounded-full shadow-sm",
-                            checked ? "bg-primary-soft text-app" : "bg-card text-muted-foreground",
+                            "text-xs font-medium",
+                            checked ? "text-success" : "text-muted-foreground",
                           ].join(" ")}
-                          aria-hidden
                         >
-                          {checked ? "✓" : "○"}
-                        </div>
+                          {checked ? "Completed" : "Not completed"}
+                        </span>
                       </div>
-                    </button>
-                  </li>
-                );
-              })}
-            </ul>
-          </div>
-        </div>
 
-        {/* Bottom action bar (same size buttons) */}
-        <div className="border-t border-soft bg-card/95 backdrop-blur px-4 py-4">
-          <div className="grid grid-cols-2 gap-2">
+                      <div className="mt-1 break-words text-[15px] font-semibold leading-snug text-app">
+                        {s.text}
+                      </div>
+                    </div>
+
+                    <div
+                      className={[
+                        "inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-full",
+                        checked
+                          ? "bg-success-soft text-success"
+                          : "bg-card text-muted-foreground",
+                      ].join(" ")}
+                      aria-hidden
+                    >
+                      {checked ? "✓" : "○"}
+                    </div>
+                  </div>
+                </button>
+              </li>
+            );
+          })}
+        </ul>
+
+        {allDone && (
+          <div className="mt-3 rounded-2xl bg-success-soft px-4 py-4 text-center">
+            <h2 className="text-base font-semibold text-app">{doneTitle}</h2>
+            <p className="mt-1 text-sm text-muted-foreground">{doneMessage}</p>
+          </div>
+        )}
+
+        <div className="mt-3 space-y-2 border-t border-soft bg-card px-1 pt-4">
+          <div className="grid grid-cols-2 gap-3">
             <BigButton variant="secondary" onClick={resetAll}>
               Reset
             </BigButton>
 
-            <BigButton variant="primary" onClick={finish} disabled={!allDone}>
+            <BigButton
+              variant="primary"
+              onClick={finish}
+              disabled={!allDone}
+              aria-disabled={!allDone}
+            >
               Finish
             </BigButton>
           </div>
+
+          {!allDone && (
+            <p className="text-center text-xs text-muted-foreground opacity-80">
+              {remaining} step{remaining !== 1 ? "s" : ""} left
+            </p>
+          )}
         </div>
       </div>
     </div>

@@ -1,7 +1,4 @@
 // /app/page.tsx
-
-import Link from "next/link";
-import LinkButton from "@/components/link-button";
 import ScreenTitle from "@/components/screen-title";
 import CardLink from "@/components/card-link";
 
@@ -10,44 +7,74 @@ export default function HomePage() {
     <div className="space-y-5">
       <ScreenTitle
         title="What do we need today?"
-        subtitle="Pick a moment. Keep it simple."
+        subtitle="Choose the kind of support you need right now."
+        centered
       />
 
-      <div className="grid grid-cols-2 gap-3">
-        <CardLink href="/routine/morning" title="Morning Routine" description="Step-by-step checklist + timer" emoji="🌤️" tone="sun" />
-<CardLink href="/after-school" title="After School Reset" description="A soft landing after the day" emoji="🎒" disabled tone="sky" />
-<CardLink href="/calm-corner" title="Calm Corner" description="Quick resets + parent scripts" emoji="😌" tone="mint" />
-<CardLink
-  href="/routine/bedtime"
-  title="Bedtime"
-  description="Wind down with calm steps"
-  emoji="🌙"
-  tone="rose"
-/>
-<CardLink href="/after-school" title="Weekend Activity" description="Ease into unstructured time" emoji="🌻" disabled tone="sun" />
-<CardLink href="/rewards" title="Rewards" description="Gentle motivation, no shame" emoji="⭐" tone="lav" />
+      <section aria-label="Support tools" className="space-y-3">
+        <div className="grid grid-cols-2 gap-3">
+          <CardLink
+            href="/routine/morning"
+            title="Morning Routine"
+            description="Gentle step-by-step start to the day"
+            emoji="🌤️"
+            tone="sun"
+          />
 
+          <CardLink
+            href="/calm-corner"
+            title="Calm Corner"
+            description="Simple calming tools and guided support"
+            emoji="😌"
+            tone="mint"
+          />
 
+          <CardLink
+            href="/routine/bedtime"
+            title="Bedtime"
+            description="Soft, predictable wind-down routine"
+            emoji="🌙"
+            tone="rose"
+          />
 
-      </div>
+          <CardLink
+            href="/rewards"
+            title="Rewards"
+            description="Celebrate progress without pressure"
+            emoji="⭐"
+            tone="lav"
+          />
+        </div>
+      </section>
 
-      <div className="rounded-2xl border border-soft bg-card p-4 text-sm leading-relaxed">
+      <section aria-labelledby="coming-soon" className="space-y-3">
+        <h2
+          id="coming-soon"
+          className="text-sm font-medium text-muted-foreground"
+        >
+          Coming soon
+        </h2>
 
-        <p className="font-medium">Low stimulation support</p>
-        <p className="mt-1 text-muted-foreground">
-          Use the toggle in the top bar to reduce motion and visual intensity.
-        </p>
-        <p className="mt-3">
-          <LinkButton
-  href="/routine/morning"
-  variant="secondary"
-  className="bg-primary-soft hover:brightness-[1.02]"
->
-  Start with Morning Routine
-</LinkButton>
+        <div className="grid grid-cols-2 gap-3">
+          <CardLink
+            href="/after-school"
+            title="After School Reset"
+            description="Unwind and transition after the day"
+            emoji="🎒"
+            disabled
+            tone="sky"
+          />
 
-        </p>
-      </div>
+          <CardLink
+            href="/weekend"
+            title="Weekend Activity"
+            description="Low-pressure ideas for unstructured time"
+            emoji="🌻"
+            disabled
+            tone="sun"
+          />
+        </div>
+      </section>
     </div>
   );
 }

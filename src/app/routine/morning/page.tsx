@@ -15,17 +15,37 @@ const STEPS: RoutineStep[] = [
 
 export default function MorningRoutinePage() {
   return (
-    <div className="mx-auto w-full max-w-[380px] space-y-5 pb-2">
+    <div className="mx-auto w-full max-w-[380px] space-y-6 pb-6">
       <ScreenTitle
         title="Morning Routine"
         subtitle="One step at a time. You can restart anytime."
       />
 
-      <div className="space-y-3">
-        <TimerPill label="Transition Timer" defaultMinutes={10} minMinutes={1} maxMinutes={30} />
-      </div>
+      <section aria-labelledby="transition-timer" className="space-y-3">
+        <h2 id="transition-timer" className="sr-only">
+          Transition timer
+        </h2>
 
-      <RoutineChecklist steps={STEPS} finishHref="/rewards" />
+        <TimerPill
+          label="Transition Timer"
+          defaultMinutes={10}
+          minMinutes={1}
+          maxMinutes={30}
+        />
+      </section>
+
+      <section aria-labelledby="morning-steps" className="space-y-3">
+        <h2 id="morning-steps" className="sr-only">
+          Morning routine steps
+        </h2>
+
+        <RoutineChecklist
+          steps={STEPS}
+          finishHref="/rewards"
+          doneTitle="Morning routine complete"
+          doneMessage="Nice work. You’re ready for the next part of the day."
+        />
+      </section>
     </div>
   );
 }

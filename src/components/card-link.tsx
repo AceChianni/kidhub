@@ -1,4 +1,4 @@
-// src/components/card-link.tsx
+// /components/card-link.tsx
 import Link from "next/link";
 
 type Tone = "sky" | "mint" | "sun" | "lav" | "rose";
@@ -19,57 +19,79 @@ const toneText: Record<Tone, string> = {
   rose: "text-rose",
 };
 
-export default function CardLink({
-  href,
-  title,
-  description,
-  emoji,
-  disabled,
-  tone = "sky",
-}: {
+type CardLinkProps = {
   href: string;
   title: string;
   description: string;
   emoji: string;
   disabled?: boolean;
   tone?: Tone;
-}) {
-  const base =
-  "min-h-[112px] rounded-2xl border border-soft p-4 shadow-sm no-underline " +
-  "transition-transform transition-shadow duration-150 " +
-  "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black/20 " +
-  "hover:-translate-y-[1px] hover:shadow-md active:scale-[0.99]";
+};
 
+export default function CardLink({
+  href,
+  title,
+  description,
+  emoji,
+  disabled = false,
+  tone = "sky",
+}: CardLinkProps) {
+  const base =
+    "tile tile-tone min-h-[132px] overflow-hidden p-3.5 no-underline text-left";
+
+  const enabledStyles = `${toneBg[tone]} tile-interactive focus-ring`;
+  const disabledStyles = `${toneBg[tone]} tile-disabled`;
 
   const content = (
-    <div className="flex h-full flex-col items-center justify-center text-center">
-      <div className="inline-flex items-center gap-2">
-        <span className={`text-2xl ${toneText[tone]}`} aria-hidden>
+    <div className="flex h-full min-h-0 flex-col justify-between overflow-hidden">
+      <div className="min-h-0 space-y-2 overflow-hidden">
+        <span
+          className={[
+            "inline-flex h-8 w-8 shrink-0 items-center justify-center overflow-hidden rounded-lg bg-card-strong text-base leading-none",
+            toneText[tone],
+          ].join(" ")}
+          aria-hidden="true"
+        >
           {emoji}
         </span>
-        <span className="font-semibold text-app">{title}</span>
-      </div>
 
-      <div className="mt-0.5 text-sm leading-snug text-muted-foreground">
-        {description}
+        <div className="min-h-0 space-y-1 overflow-hidden">
+          <h3 className="overflow-hidden break-words text-[15px] font-semibold leading-snug text-app">
+            {title}
+          </h3>
+
+          <p className="overflow-hidden break-words text-sm leading-snug text-muted-foreground">
+            {description}
+          </p>
+        </div>
       </div>
 
       {disabled && (
-        <div className="mt-1 text-xs text-muted-foreground">Coming soon</div>
+        <p className="coming-soon mt-2 block max-w-full overflow-hidden text-ellipsis whitespace-nowrap">
+          Coming soon
+        </p>
       )}
     </div>
   );
 
   if (disabled) {
     return (
-      <div className={`${base} opacity-70 ${toneBg[tone]}`}>
+      <div
+        aria-disabled="true"
+        aria-label={`${title}. ${description}. Coming soon.`}
+        className={`${base} ${disabledStyles}`}
+      >
         {content}
       </div>
     );
   }
 
   return (
-    <Link href={href} className={`${base} ${toneBg[tone]}`}>
+    <Link
+      href={href}
+      aria-label={`${title}. ${description}`}
+      className={`${base} ${enabledStyles}`}
+    >
       {content}
     </Link>
   );

@@ -1,5 +1,6 @@
 // src/app/layout.tsx
 
+// @ts-ignore
 import "./globals.css";
 import { LowStimProvider } from "@/components/low-stim-provider";
 import TopBar from "@/components/top-bar";
@@ -11,18 +12,12 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body>
+      <body className="bg-background text-foreground antialiased">
         <LowStimProvider>
-          <div className="min-h-screen px-4 py-6 flex items-start justify-center">
+          <div className="min-h-screen flex justify-center px-4 py-4 sm:py-8">
             <div className="w-full max-w-[420px]">
-              
-              <div className="rounded-[28px] border border-soft shadow-sm p-[1px] overflow-hidden bg-card">
-  <div className="rounded-[27px] overflow-hidden">
-    <TopBar />
-    <main className="px-4 pb-10 pt-4">{children}</main>
-  </div>
-</div>
-
+              <TopBar />
+              <main className="px-1 pb-8 pt-4">{children}</main>
             </div>
           </div>
         </LowStimProvider>
