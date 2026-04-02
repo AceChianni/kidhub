@@ -6,6 +6,10 @@ The product focuses on reducing friction around transitions, supporting emotiona
 
 ---
 
+## 🔗 Live Demo
+View the project here:
+https://kidhub.vercel.app/
+
 ## ✨ Features
 
 - 🧩 Step-by-step routines (morning, bedtime)
