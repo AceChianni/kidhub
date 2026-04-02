@@ -1,36 +1,60 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Kids Hub
 
-## Getting Started
+Kids Hub is a neurodivergent-friendly routine and emotional regulation tool designed for children and caregivers.
 
-First, run the development server:
+The product focuses on reducing friction around transitions, supporting emotional awareness, and guiding children through small, manageable actions using calm visuals and predictable flows.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+---
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## ✨ Features
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- 🧩 Step-by-step routines (morning, bedtime)
+- 🌿 Calm Corner for emotional regulation
+- ⭐ Gentle rewards system (no pressure-based gamification)
+- 🧠 Mood-first interaction patterns
+- 🌙 Low stimulation mode
+- 👨‍👩‍👧 Parent view with co-regulation scripts
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+---
 
-## Learn More
+## 🧠 Design Principles
 
-To learn more about Next.js, take a look at the following resources:
+- Reduce cognitive load
+- One clear action per screen
+- No shame, no streaks, no pressure
+- Meet the user where they are emotionally
+- Support autonomy + flexibility
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+---
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## 🔮 Future Direction
 
-## Deploy on Vercel
+- Linked parent + child accounts
+- Mood and behavior tracking
+- Exportable summaries for therapists and caregivers
+- Pattern recognition over time
+- Multi-child household support
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+---
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## 🛠 Tech Stack
+
+- React
+- Next.js
+- Tailwind CSS
+
+---
+
+## 🚧 Status
+
+Concept product in active development.
+
+Focused on refining UX patterns and interaction design for neurodivergent users.
+
+---
+
+## 💡 Why This Matters
+
+Kids Hub explores how digital tools can support emotional regulation without introducing pressure, shame, or overstimulation.
+
+It is designed not just as a task tool, but as a **calm support system for real-life moments**.
